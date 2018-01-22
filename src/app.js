@@ -1,3 +1,5 @@
+
+
 var cat;
 var background;
 var mouse;
@@ -9,13 +11,13 @@ var caughtMice = 0;
 var miceTotal = 0;
 
 function startGame() {
-    background = new Component(859, 574, "../img/living_room.jpg", 0, 0, 0, 0, 859, 574, "image");
-    couch1 = new Component(93, 278, "../img/living_room.jpg", 186, 147, 186, 147, 93, 278, "image");
-    couch2 = new Component(278, 93, "../img/living_room.jpg", 299, 37, 299, 37, 278, 93, "image");
-    tv = new Component(196, 60, "../img/living_room.jpg", 359, 495, 359, 495, 196, 60, "image");
-    coffeeTable = new Component(73, 119, "../img/living_room.jpg", 404, 225, 404, 225, 73, 119, "image");
-    cat = new Component(148, 80, "../img/cat1.png", 1, 1, 20, 20, 75, 39, "image", "cat");
-    mouse = new Component(100, 73, "../img/mouse.png", 0, 0, mouseInitX(), mouseInitY(), 30, 22, "image", "mouse");
+    background = new Component(859, 574, "./img/living_room.jpg", 0, 0, 0, 0, 859, 574, "image");
+    couch1 = new Component(93, 278, "./img/living_room.jpg", 186, 147, 186, 147, 93, 278, "image");
+    couch2 = new Component(278, 93, "./img/living_room.jpg", 299, 37, 299, 37, 278, 93, "image");
+    tv = new Component(196, 60, "./img/living_room.jpg", 359, 495, 359, 495, 196, 60, "image");
+    coffeeTable = new Component(73, 119, "./img/living_room.jpg", 404, 225, 404, 225, 73, 119, "image");
+    cat = new Component(148, 80, "./img/cat1.png", 1, 1, 20, 20, 75, 39, "image", "cat");
+    mouse = new Component(100, 73, "./img/mouse.png", 0, 0, mouseInitX(), mouseInitY(), 30, 22, "image", "mouse");
     score = new Component("30px", "Consolas", "black", 0, 0, 600, 50, 0, 0, "text");
     gameCanvas.start();
     removeStartButton();
@@ -226,7 +228,7 @@ function updateGameArea() {
 
         }
     updateComponents();
-    mouse = new Component(100, 73, "../img/mouse.png", 0, 0,
+    mouse = new Component(100, 73, "./img/mouse.png", 0, 0,
                           mouseInitY(), mouseInitX(), 30, 22, "image");
     miceTotal += 1;
     } else {
@@ -266,7 +268,7 @@ function mouseMoves() {
     mouse.speedX = mouseSpeed() * 2;
     mouse.speedY = mouseSpeed();
     if (mouse.dx >= background.dw - 30 || mouse.dy >= background.dh - 30) {
-        mouse = new Component(100, 73, "../img/mouse.png", 0, 0, mouseInitX(), mouseInitY(), 30, 22, "image");
+        mouse = new Component(100, 73, "./img/mouse.png", 0, 0, mouseInitX(), mouseInitY(), 30, 22, "image");
         miceTotal += 1;
   }
     mouse.newPos();
