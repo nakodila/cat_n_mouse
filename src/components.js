@@ -1,10 +1,5 @@
-const Component = function component (width, height, path, sx, sy, dx, dy, dw, dh,  type, comp) {
+ function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp) {
     this.type = type;
-    if (type == "image") {
-        this.image = new Image();
-        this.image.src = path;
-    }
-
     this.width = width;
     this.height = height;
     this.speedX = 0;
@@ -16,26 +11,30 @@ const Component = function component (width, height, path, sx, sy, dx, dy, dw, d
     this.dw = dw;
     this.dh = dh;
 
-    this.catFrames = { 0 : [1, 1],
-                        1 : [150, 1],
-                        2 : [300, 1],
-                        3 : [450, 1],
-                        4 : [1, 117],
-                        5 : [150, 117],
-                        6 : [300, 117],
-                        7 : [450, 117],
-                        8 : [1, 236],
-                        9 : [150, 236],
-                        10 : [300, 236],
-                        11 : [450, 236]
+    this.catFrames = {
+                      0 : [1, 1],
+                      1 : [150, 1],
+                      2 : [300, 1],
+                      3 : [450, 1],
+                      4 : [1, 117],
+                      5 : [150, 117],
+                      6 : [300, 117],
+                      7 : [450, 117],
+                      8 : [1, 236],
+                      9 : [150, 236],
+                      10 : [300, 236],
+                      11 : [450, 236]
                       };
-
     this.frameIndex = 0;
     this.pressCount = 0;
-    this.pressPerFrame = 20;
+    this.pressPerFrame = 10;
 
+    if (type == "image") {
+        this.image = new Image();
+        this.image.src = path;
+    }
     this.update = function() {
-        ctx = myGameArea.context;
+        ctx = gameCanvas.context;
         if (this.pressCount > this.pressPerFrame) {
           this.pressCount = 0;
           this.frameIndex += 1;
@@ -67,6 +66,10 @@ const Component = function component (width, height, path, sx, sy, dx, dy, dw, d
                 this.dw,
                 this.dh
               );
+        } else if (type == "text") {
+            ctx.font = this.width + " " + this.height;
+            ctx.fillStyle = path;
+            ctx.fillText(this.text, this.dx, this.dy);
         } else {
             ctx.fillStyle = path;
             ctx.fillRect(this.dx, this.dy, this.dw, this.dh);
@@ -77,5 +80,4 @@ const Component = function component (width, height, path, sx, sy, dx, dy, dw, d
         this.dy += this.speedY;
     }
 }
-
-module.exports = component;
+export default Component;

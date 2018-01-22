@@ -1,5 +1,3 @@
-
-
 var cat;
 var background;
 var mouse;
@@ -214,7 +212,7 @@ function updateComponents() {
 function updateGameArea() {
     if (cat.catchMouse(mouse)) {
         caughtMice += 1;
-        if (caughtMice == 1) {
+        if (caughtMice == 5) {
             miceTotal += 1;
             gameCanvas.stop();
             removeCanvas();
