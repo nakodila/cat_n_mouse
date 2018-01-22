@@ -1,5 +1,69 @@
-html, body {
-  width:  100%;
-  height: 100%;
-  margin: 0px;
+html, body, figure, figcaption, ul, li, h1, div, p {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  text-align: inherit;
+}
+
+body {
+  background-image: url("../img/living_room.jpg");
+  background-repeat: no-repeat;
+  width: 859px;
+  height: 574px;
+  z-index: -2;
+}
+
+.bodyHide {
+  width: 859px;
+  height: 574px;
+  display: grid;
+}
+
+.bodyHide::after {
+  width: 859px;
+  height: 574px;
+  content: "";
+  background: black;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.button {
+  border: 1px solid #2d9ea8;
+  border-radius: 4px;
+  font-size: 20px;
+  font-family: sans-serif;
+  padding: 10px;
+  background: #39c9d3;
+  justify-self: center;
+  align-self: center;
+}
+
+.button:hover {
+  background: #43edf9;
+}
+
+.scoreDiv {
+  border: 1px solid #2d9ea8;
+  border-radius: 4px;
+  font-size: 20px;
+  font-family: sans-serif;
+  padding: 10px;
+  background: #43edf9;
+  justify-self: center;
+  align-self: center;
+}
+
+.scorePar {
+  padding: 10px 20px;
+}
+
+.replayButtonDiv {
+  display: grid;
+  justify-self: center;
+  align-self: start;
 }

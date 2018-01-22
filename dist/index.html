@@ -3,13 +3,11 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script type="application/javascript" src="../src/app.js"></script>
-        <style>
-        canvas {
-            border:1px solid #d3d3d3;
-            background-color: #f1f1f1;
-        }
-        </style>
+        <link rel="stylesheet" type="text/css" href="../style/style.css">
     </head>
-    <body onload="startGame()">
+    <body id="body">
+      <div class="bodyHide startButton">
+        <button onclick="startGame()" class="button startButton">Start Game</button>
+      </div>
     </body>
 </html>
