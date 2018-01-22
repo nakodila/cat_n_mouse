@@ -1,4 +1,4 @@
-const component = function component (width, height, path, sx, sy, dx, dy, dw, dh,  type, comp) {
+const Component = function component (width, height, path, sx, sy, dx, dy, dw, dh,  type, comp) {
     this.type = type;
     if (type == "image") {
         this.image = new Image();
