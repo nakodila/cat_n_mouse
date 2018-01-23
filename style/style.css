@@ -33,19 +33,29 @@ body {
 }
 
 .button {
-  border: 1px solid #2d9ea8;
+  width 50px;
+  border: 1px solid #b74545;
   border-radius: 4px;
   font-size: 20px;
   font-family: sans-serif;
+  color: #b74545;
   padding: 10px;
   background: #39c9d3;
   justify-self: center;
-  align-self: center;
+  align-self: end;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+
 }
 
 .button:hover {
   background: #43edf9;
+  color: #f70404;
+  border: 2px solid #f70404;
+  padding: 9px;
+  box-sizing: border-box;
 }
+
 
 .scoreDiv {
   border: 1px solid #2d9ea8;
@@ -58,6 +68,11 @@ body {
   align-self: center;
 }
 
+.introDiv {
+  font-size: 15px;
+  line-height: 22px;
+  padding: 20px;
+}
 .scorePar {
   padding: 10px 20px;
 }
@@ -65,5 +80,9 @@ body {
 .replayButtonDiv {
   display: grid;
   justify-self: center;
+  align-self: start;
+}
+
+.center {
   align-self: start;
 }
