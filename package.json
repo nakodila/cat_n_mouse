@@ -1,0 +1,29 @@
+{
+  "name": "cat_n_mouse",
+  "version": "1.0.0",
+  "description": "Cat-n-Mouse is an action game where the mouse is running around an appartment  and the cat (being lead by the user) is chasing it.",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "babel-preset-react": "^6.24.1",
+    "lodash": "^4.17.4",
+    "webpack": "^3.10.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nakodila/cat_n_mouse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nakodila/cat_n_mouse/issues"
+  },
+  "homepage": "https://github.com/nakodila/cat_n_mouse#readme"
+}

@@ -1,4 +1,4 @@
- function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp) {
+export default function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp) {
     this.type = type;
     this.width = width;
     this.height = height;
@@ -79,5 +79,23 @@
         this.dx += this.speedX;
         this.dy += this.speedY;
     }
+
+    this.catchMouse = function(mouse) {
+        var myleft = this.dx + 40;
+        var myright = this.dx + (this.dw);
+        var mytop = this.dy ;
+        var mybottom = this.dy + (this.dh);
+        var otherleft = mouse.dx + 10;
+        var otherright = mouse.dx + (mouse.dw);
+        var othertop = mouse.dy + 10;
+        var otherbottom = mouse.dy + (mouse.dh) - 10;
+        var caught = true;
+        if ((mybottom < othertop) ||
+               (mytop > otherbottom) ||
+               (myright < otherleft) ||
+               (myleft > otherright)) {
+            caught = false;
+        }
+        return caught;
+    }
 }
-export default Component;

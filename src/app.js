@@ -1,3 +1,4 @@
+
 var cat;
 var background;
 var mouse;
@@ -212,7 +213,7 @@ function updateComponents() {
 function updateGameArea() {
     if (cat.catchMouse(mouse)) {
         caughtMice += 1;
-        if (caughtMice == 5) {
+        if (caughtMice == 1) {
             miceTotal += 1;
             gameCanvas.stop();
             removeCanvas();
@@ -222,12 +223,11 @@ function updateGameArea() {
             cat.speedY = 0;
             mouse.speedX = 0;
             mouse.speedY = 0;
-            miceTotal = 0;
+            miceTotal = -1;
 
         }
     updateComponents();
-    mouse = new Component(100, 73, "./img/mouse.png", 0, 0,
-                          mouseInitY(), mouseInitX(), 30, 22, "image");
+    mouse = new Component(100, 73, "./img/mouse.png", 0, 0, mouseInitY(), mouseInitX(), 30, 22, "image");
     miceTotal += 1;
     } else {
         updateComponents();

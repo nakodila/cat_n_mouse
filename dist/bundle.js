@@ -65,7 +65,10 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var cat;
 var background;
@@ -92,43 +95,43 @@ function startGame() {
 
 function removeStartButton() {
     var startButton = document.getElementsByClassName("startButton");
-      for (i = 0; i < startButton.length; i += 1) {
+    for (i = 0; i < startButton.length; i += 1) {
         startButton[0].parentNode.removeChild(startButton[0]);
-      }
+    }
 }
 
 function removeCanvas() {
     var body = document.getElementById("body");
     var canvas = document.getElementsByTagName("canvas");
-        canvas[0].parentNode.removeChild(canvas[0]);
+    canvas[0].parentNode.removeChild(canvas[0]);
 }
 
 function addWinDiv() {
-  var body = document.getElementById("body");
-  var mainDiv = document.createElement("div");
-  var scoreDiv = document.createElement("div");
-  var scorePar = document.createElement("p");
-  var gameScore = document.createTextNode(`You caught ${Math.round(caughtMice/miceTotal*100)}% of mice`);
-  var replayButtonDiv = document.createElement("div");
-  var replayButton = document.createElement("button");
-  var buttonText = document.createTextNode("Replay Game");
-  scoreDiv.classList.add("scoreDiv");
-  scoreDiv.classList.add("startButton");
-  mainDiv.classList.add("bodyHide");
-  scorePar.classList.add("scorePar");
-  replayButton.classList.add("button");
-  replayButtonDiv.classList.add("replayButtonDiv");
-  replayButton.classList.add("startButton");
-  scoreDiv.classList.add("startButton");
-  mainDiv.classList.add("startButton");
-  replayButton.setAttribute("onclick", "startGame()");
-  scorePar.appendChild(gameScore);
-  scoreDiv.appendChild(scorePar);
-  replayButtonDiv.appendChild(replayButton);
-  replayButton.appendChild(buttonText);
-  mainDiv.appendChild(scoreDiv);
-  mainDiv.appendChild(replayButtonDiv);
-  body.appendChild(mainDiv);
+    var body = document.getElementById("body");
+    var mainDiv = document.createElement("div");
+    var scoreDiv = document.createElement("div");
+    var scorePar = document.createElement("p");
+    var gameScore = document.createTextNode("You caught " + Math.round(caughtMice / miceTotal * 100) + "% of mice");
+    var replayButtonDiv = document.createElement("div");
+    var replayButton = document.createElement("button");
+    var buttonText = document.createTextNode("Replay Game");
+    scoreDiv.classList.add("scoreDiv");
+    scoreDiv.classList.add("startButton");
+    mainDiv.classList.add("bodyHide");
+    scorePar.classList.add("scorePar");
+    replayButton.classList.add("button");
+    replayButtonDiv.classList.add("replayButtonDiv");
+    replayButton.classList.add("startButton");
+    scoreDiv.classList.add("startButton");
+    mainDiv.classList.add("startButton");
+    replayButton.setAttribute("onclick", "startGame()");
+    scorePar.appendChild(gameScore);
+    scoreDiv.appendChild(scorePar);
+    replayButtonDiv.appendChild(replayButton);
+    replayButton.appendChild(buttonText);
+    mainDiv.appendChild(scoreDiv);
+    mainDiv.appendChild(replayButtonDiv);
+    body.appendChild(mainDiv);
 }
 
 function mouseInitX() {
@@ -140,8 +143,8 @@ function mouseInitY() {
 }
 
 var gameCanvas = {
-    canvas : document.createElement("canvas"),
-    start : function() {
+    canvas: document.createElement("canvas"),
+    start: function start() {
         this.canvas.width = 859;
         this.canvas.height = 574;
         this.context = this.canvas.getContext("2d");
@@ -149,21 +152,21 @@ var gameCanvas = {
         this.interval = setInterval(updateGameArea, 10);
         window.addEventListener('keydown', function (e) {
             gameCanvas.key = e.keyCode;
-        })
+        });
         window.addEventListener('keyup', function (e) {
             gameCanvas.key = false;
-        })
-        },
+        });
+    },
 
-    clear : function() {
+    clear: function clear() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
-    stop : function() {
+    stop: function stop() {
         clearInterval(this.interval);
     }
-}
+};
 
-function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp) {
+function Component(width, height, path, sx, sy, dx, dy, dw, dh, type, comp) {
     this.type = type;
     this.width = width;
     this.height = height;
@@ -177,19 +180,19 @@ function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp) {
     this.dh = dh;
 
     this.catFrames = {
-                      0 : [1, 1],
-                      1 : [150, 1],
-                      2 : [300, 1],
-                      3 : [450, 1],
-                      4 : [1, 117],
-                      5 : [150, 117],
-                      6 : [300, 117],
-                      7 : [450, 117],
-                      8 : [1, 236],
-                      9 : [150, 236],
-                      10 : [300, 236],
-                      11 : [450, 236]
-                      };
+        0: [1, 1],
+        1: [150, 1],
+        2: [300, 1],
+        3: [450, 1],
+        4: [1, 117],
+        5: [150, 117],
+        6: [300, 117],
+        7: [450, 117],
+        8: [1, 236],
+        9: [150, 236],
+        10: [300, 236],
+        11: [450, 236]
+    };
     this.frameIndex = 0;
     this.pressCount = 0;
     this.pressPerFrame = 10;
@@ -198,39 +201,19 @@ function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp) {
         this.image = new Image();
         this.image.src = path;
     }
-    this.update = function() {
+    this.update = function () {
         ctx = gameCanvas.context;
         if (this.pressCount > this.pressPerFrame) {
-          this.pressCount = 0;
-          this.frameIndex += 1;
-          if (this.frameIndex == 5) {
-            this.frameIndex = 0;
-          }
+            this.pressCount = 0;
+            this.frameIndex += 1;
+            if (this.frameIndex == 5) {
+                this.frameIndex = 0;
+            }
         }
-        if ((type == "image") && (comp == "cat")) {
-            ctx.drawImage(
-                this.image,
-                this.catFrames[Math.floor(this.frameIndex)][0],
-                this.catFrames[Math.floor(this.frameIndex)][1],
-                this.width,
-                this.height,
-                this.dx,
-                this.dy,
-                this.dw,
-                this.dh
-              );
+        if (type == "image" && comp == "cat") {
+            ctx.drawImage(this.image, this.catFrames[Math.floor(this.frameIndex)][0], this.catFrames[Math.floor(this.frameIndex)][1], this.width, this.height, this.dx, this.dy, this.dw, this.dh);
         } else if (type == "image") {
-            ctx.drawImage(
-                this.image,
-                this.sx,
-                this.sy,
-                this.width,
-                this.height,
-                this.dx,
-                this.dy,
-                this.dw,
-                this.dh
-              );
+            ctx.drawImage(this.image, this.sx, this.sy, this.width, this.height, this.dx, this.dy, this.dw, this.dh);
         } else if (type == "text") {
             ctx.font = this.width + " " + this.height;
             ctx.fillStyle = path;
@@ -239,49 +222,46 @@ function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp) {
             ctx.fillStyle = path;
             ctx.fillRect(this.dx, this.dy, this.dw, this.dh);
         }
-    }
-    this.newPos = function() {
+    };
+    this.newPos = function () {
         this.dx += this.speedX;
         this.dy += this.speedY;
-    }
+    };
 
-    this.catchMouse = function(mouse) {
+    this.catchMouse = function (mouse) {
         var myleft = this.dx + 40;
-        var myright = this.dx + (this.dw);
-        var mytop = this.dy ;
-        var mybottom = this.dy + (this.dh);
+        var myright = this.dx + this.dw;
+        var mytop = this.dy;
+        var mybottom = this.dy + this.dh;
         var otherleft = mouse.dx + 10;
-        var otherright = mouse.dx + (mouse.dw);
+        var otherright = mouse.dx + mouse.dw;
         var othertop = mouse.dy + 10;
-        var otherbottom = mouse.dy + (mouse.dh) - 10;
+        var otherbottom = mouse.dy + mouse.dh - 10;
         var caught = true;
-        if ((mybottom < othertop) ||
-               (mytop > otherbottom) ||
-               (myright < otherleft) ||
-               (myleft > otherright)) {
+        if (mybottom < othertop || mytop > otherbottom || myright < otherleft || myleft > otherright) {
             caught = false;
         }
         return caught;
-    }
+    };
 }
 
 function updateComponents() {
-  gameCanvas.clear();
-  background.update();
-  score.text = "SCORE: " + String(caughtMice);
-  score.update();
-  couch1.update();
-  couch2.update();
-  tv.update();
-  coffeeTable.update();
-  catMoves();
-  mouseMoves();
+    gameCanvas.clear();
+    background.update();
+    score.text = "SCORE: " + String(caughtMice);
+    score.update();
+    couch1.update();
+    couch2.update();
+    tv.update();
+    coffeeTable.update();
+    catMoves();
+    mouseMoves();
 }
 
 function updateGameArea() {
     if (cat.catchMouse(mouse)) {
         caughtMice += 1;
-        if (caughtMice == 5) {
+        if (caughtMice == 1) {
             miceTotal += 1;
             gameCanvas.stop();
             removeCanvas();
@@ -291,19 +271,17 @@ function updateGameArea() {
             cat.speedY = 0;
             mouse.speedX = 0;
             mouse.speedY = 0;
-            miceTotal = 0;
-
+            miceTotal = -1;
         }
-    updateComponents();
-    mouse = new Component(100, 73, "./img/mouse.png", 0, 0,
-                          mouseInitY(), mouseInitX(), 30, 22, "image");
-    miceTotal += 1;
+        updateComponents();
+        mouse = new Component(100, 73, "./img/mouse.png", 0, 0, mouseInitY(), mouseInitX(), 30, 22, "image");
+        miceTotal += 1;
     } else {
         updateComponents();
     }
 }
 
-function catMoves () {
+function catMoves() {
     cat.speedX = 0;
     cat.speedY = 0;
 
@@ -327,7 +305,7 @@ function catMoves () {
     cat.update();
 }
 
-function mouseSpeed () {
+function mouseSpeed() {
     return Math.round(Math.random());
 }
 
@@ -337,12 +315,10 @@ function mouseMoves() {
     if (mouse.dx >= background.dw - 30 || mouse.dy >= background.dh - 30) {
         mouse = new Component(100, 73, "./img/mouse.png", 0, 0, mouseInitX(), mouseInitY(), 30, 22, "image");
         miceTotal += 1;
-  }
+    }
     mouse.newPos();
     mouse.update();
 }
 
-
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.js.map

@@ -1,8 +1,18 @@
-
 module.exports = {
-  entry: "./src/app.js",
-  output: {
-    filename: "./src/bundle.js"
-  },
-  devtool: 'source-map',
-};
+    entry: `${__dirname}/src/app.js`,
+    output: {
+        path: `${__dirname}/dist`,
+        filename: 'bundle.js'
+    },
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015']
+                }
+            }
+        ]
+    }
+}
