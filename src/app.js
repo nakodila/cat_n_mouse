@@ -10,12 +10,14 @@ var caughtMice = 0;
 var miceTotal = 0;
 
 function startGame() {
-    background = new Component(859, 574, "./img/living_room.jpg", 0, 0, 0, 0, 859, 574, "image");
-    couch1 = new Component(93, 278, "./img/living_room.jpg", 186, 147, 186, 147, 93, 278, "image");
-    couch2 = new Component(278, 93, "./img/living_room.jpg", 299, 37, 299, 37, 278, 93, "image");
-    tv = new Component(196, 60, "./img/living_room.jpg", 359, 495, 359, 495, 196, 60, "image");
-    coffeeTable = new Component(73, 119, "./img/living_room.jpg", 404, 225, 404, 225, 73, 119, "image");
-    cat = new Component(148, 80, "./img/cat1.png", 1, 1, 20, 20, 75, 39, "image", "cat");
+    // debugger
+    background = new Component(1200, 765, "./img/living_room.png", 0, 0, 0, 0, 1000, 638, "image");
+    // couch1 = new Component(93, 278, "./img/living_room.png", 186, 147, 186, 147, 93, 278, "image");
+    // couch2 = new Component(278, 93, "./img/living_room.png", 299, 37, 299, 37, 278, 93, "image");
+    // tv = new Component(196, 60, "./img/living_room.png", 359, 495, 359, 495, 196, 60, "image");
+    // coffeeTable = new Component(73, 119, "./img/living_room.png", 404, 225, 404, 225, 73, 119, "image");
+    cat = new Component(148, 80, "./img/cat1.png", 1, 1, 20, 20, 100, 52, "image", "cat");
+    mouse = new Component(100, 73, "./img/mouse.png", 0, 0, mouseInitX(), mouseInitY(), 30, 22, "image", "mouse");
     mouse = new Component(100, 73, "./img/mouse.png", 0, 0, mouseInitX(), mouseInitY(), 30, 22, "image", "mouse");
     score = new Component("30px", "Consolas", "black", 0, 0, 600, 50, 0, 0, "text");
     gameCanvas.start();
@@ -74,8 +76,8 @@ function mouseInitY() {
 var gameCanvas = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 859;
-        this.canvas.height = 574;
+        this.canvas.width = 1000;
+        this.canvas.height = 638;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 10);
@@ -95,7 +97,8 @@ var gameCanvas = {
     }
 }
 
-function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp) {
+function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp, className) {
+
     this.type = type;
     this.width = width;
     this.height = height;
@@ -202,10 +205,10 @@ function updateComponents() {
   background.update();
   score.text = "SCORE: " + String(caughtMice);
   score.update();
-  couch1.update();
-  couch2.update();
-  tv.update();
-  coffeeTable.update();
+  // couch1.update();
+  // couch2.update();
+  // tv.update();
+  // coffeeTable.update();
   catMoves();
   mouseMoves();
 }
@@ -224,8 +227,8 @@ function updateGameArea() {
             mouse.speedX = 0;
             mouse.speedY = 0;
             miceTotal = -1;
-
         }
+        
     updateComponents();
     mouse = new Component(100, 73, "./img/mouse.png", 0, 0, mouseInitY(), mouseInitX(), 30, 22, "image");
     miceTotal += 1;

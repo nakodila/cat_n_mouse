@@ -7,65 +7,85 @@ html, body, figure, figcaption, ul, li, h1, div, p {
 }
 
 body {
-  background-image: url("../img/living_room.jpg");
+  background-position: center;
+  background-image: url("../img/living_room.png");
   background-repeat: no-repeat;
-  width: 859px;
-  height: 574px;
   z-index: -2;
 }
 
-.bodyHide {
-  width: 859px;
-  height: 574px;
-  display: grid;
+canvas {
+  justify-self: center;
+  align-self: center;
 }
 
-.bodyHide::after {
-  width: 859px;
-  height: 574px;
+.body {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../img/clouds.jpg");
+  background-repeat: no-repeat;
+  background-size: 100vw 100vh;
+  z-index: -5;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+.bodyHide {
+  width: 1000px;
+  height: 638px;
+  background-position: center;
+  background-image: url("../img/living_room.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 10;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+
+/* .bodyHide::after {
+  width: 900px;
+  height: 548px;
   content: "";
   background: black;
   opacity: 0.5;
-  top: 0;
-  left: 0;
-  position: absolute;
+  background-position: center;
   z-index: -1;
-}
+} */
 
 .button {
-  width 50px;
-  border: 1px solid #b74545;
+  box-sizing: border-box;
+  border: 1px solid #47A644;
   border-radius: 4px;
+  margin-bottom: 30px;
+  padding: 10px;
   font-size: 20px;
   font-family: sans-serif;
-  color: #b74545;
-  padding: 10px;
-  background: #39c9d3;
+  z-index: 10;
+  color: #faf5e5;
+  background: #47A644;
   justify-self: center;
   align-self: end;
-  margin-bottom: 30px;
-  box-sizing: border-box;
-
 }
 
 .button:hover {
-  background: #43edf9;
-  color: #f70404;
-  border: 2px solid #f70404;
+  background: #47A644;
+  /* color: #d05559; */
+  border: 2px solid #d05559;
   padding: 9px;
   box-sizing: border-box;
 }
 
-
 .scoreDiv {
-  border: 1px solid #2d9ea8;
+  border: 1px solid #47A644;
   border-radius: 4px;
   font-size: 20px;
   font-family: sans-serif;
   padding: 10px;
-  background: #43edf9;
+  background: #47A644;
   justify-self: center;
   align-self: center;
+  color: #faf5e5;
 }
 
 .introDiv {
@@ -73,6 +93,7 @@ body {
   line-height: 22px;
   padding: 20px;
 }
+
 .scorePar {
   padding: 10px 20px;
 }
