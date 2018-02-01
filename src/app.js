@@ -13,8 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
   startGame()
 });
 function startGame() {
-    background = new Component(1200, 765, "./img/living_room.png", 0, 0, 0, 0, 1000, 638, "image", "furniture");
-    couch1 = new Component(476, 174, "./img/living_room.png", 685, 111, 571, 92, 397, 145, "image");
+  // width, height, path, sx, sy, dx, dy, dw, dh,  type, comp, className
+    background = new Component(1200, 766, "./img/living_room.png", 0, 0, 0, 0, 1200, 766, "image", "furniture");
+    couch1 = new Component(478, 172, "./img/living_room.png", 684, 156, 684, 156, 478, 172, "image");
     // couch2 = new Component(278, 93, "./img/living_room.png", 299, 37, 299, 37, 278, 93, "image");
     // tv = new Component(196, 60, "./img/living_room.png", 359, 495, 359, 495, 196, 60, "image");
     // coffeeTable = new Component(73, 119, "./img/living_room.png", 404, 225, 404, 225, 73, 119, "image");
@@ -78,8 +79,8 @@ var gameCanvas = {
     canvas : document.createElement("canvas"),
     // key: false,
     start : function() {
-        this.canvas.width = 1000;
-        this.canvas.height = 638;
+        this.canvas.width = 1200;
+        this.canvas.height = 766;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 10);
@@ -192,9 +193,9 @@ function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp, cla
         var otherbottom = mouse.dy + (mouse.dh) - 10;
         var caught = true;
         if ((mybottom < othertop) ||
-               (mytop > otherbottom) ||
-               (myright < otherleft) ||
-               (myleft > otherright)) {
+            (mytop > otherbottom) ||
+            (myright < otherleft) ||
+            (myleft > otherright)) {
             caught = false;
         }
         return caught;
@@ -219,24 +220,48 @@ function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp, cla
       return collision;
   }
   this.furnitureLeft = function(furniture) {
+    var myleft = this.dx;
     var myright = this.dx + (this.dw);
+    var mytop = this.dy + 10;
+    var mybottom = this.dy + (this.dh) - 10;
     var otherleft = furniture.dx;
-    return myright >= otherleft;
+    var otherright = furniture.dx + (furniture.dw);
+    var othertop = furniture.dy;
+    var otherbottom = furniture.dy + (furniture.dh);
+    return myright >= otherleft && (mybottom >= othertop || mytop <= otherbottom);
   }
-  // this.furnitureRight = function(furniture) {
-  //   var myleft = this.dx;
-  //   var otherright = furniture.dx + (furniture.dw);
-  //   return myleft <= otherright;
-  // }
+  this.furnitureRight = function(furniture) {
+    var myleft = this.dx;
+    var myright = this.dx + (this.dw);
+    var mytop = this.dy + 10;
+    var mybottom = this.dy + (this.dh) - 10;
+    var otherleft = furniture.dx;
+    var otherright = furniture.dx + (furniture.dw);
+    var othertop = furniture.dy;
+    var otherbottom = furniture.dy + (furniture.dh);
+    return myleft <= otherright && (mybottom >= othertop || mytop <= otherbottom);
+  }
   // this.furnitureTop = function(furniture) {
+  //   var myleft = this.dx + 10;
+  //   var myright = this.dx + (this.dw) - 10;
+  //   var mytop = this.dy;
   //   var mybottom = this.dy + (this.dh);
+  //   var otherleft = furniture.dx;
+  //   var otherright = furniture.dx + (furniture.dw);
   //   var othertop = furniture.dy;
-  //   return mybottom >= othertop;
+  //   var otherbottom = furniture.dy + (furniture.dh);
+  //   return mybottom >= othertop && (myright >= otherleft || myleft <= otherright);
   // }
   // this.furnitureBottom = function(furniture) {
+  //   var myleft = this.dx + 10;
+  //   var myright = this.dx + (this.dw) - 10;
   //   var mytop = this.dy;
+  //   var mybottom = this.dy + (this.dh);
+  //   var otherleft = furniture.dx;
+  //   var otherright = furniture.dx + (furniture.dw);
+  //   var othertop = furniture.dy;
   //   var otherbottom = furniture.dy + (furniture.dh);
-  //   return mytop <= otherbottom;
+  //   return mytop <= otherbottom && (myright >= otherleft || myleft <= otherright);
   // }
 }
 
@@ -256,7 +281,7 @@ function updateComponents() {
 function updateGameArea() {
   if (cat.catchMouse(mouse)) {
     caughtMice += 1;
-    if (caughtMice == 1) {
+    if (caughtMice == 5) {
       miceTotal += 1;
       gameCanvas.stop();
       removeCanvas();
@@ -297,21 +322,21 @@ function catMoves () {
       }
     }
     if (gameCanvas.key && gameCanvas.key == 38) {
-      if (cat.catMeetFurniture(couch1) && cat.furnitureTop(couch1)) {
-        cat.speedY = 0;
-      } else {
+
         cat.speedY = -2;
         cat.pressCount += 1;
-      }
+
     }
+     //       if (cat.catMeetFurniture(couch1)) {
+           //   cat.speedY = 0;
+           // } else {&& cat.furnitureBottom(couch1)
     if (gameCanvas.key && gameCanvas.key == 40) {
-      if (cat.catMeetFurniture(couch1) && cat.furnitureTop(couch1)) {
-        cat.speedY = 0;
-      } else {
         cat.speedY = 2;
         cat.pressCount += 1;
-      }
     }
+    // if (cat.catMeetFurniture(couch1) && cat.furnitureTop(couch1)) {
+    //   cat.speedY = 0;
+    // } else {
     cat.newPos();
     cat.update();
 }
