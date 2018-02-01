@@ -9,15 +9,16 @@ var coffeeTable;
 var caughtMice = 0;
 var miceTotal = 0;
 
+document.addEventListener('DOMContentLoaded', function() {
+  startGame()
+});
 function startGame() {
-    // debugger
-    background = new Component(1200, 765, "./img/living_room.png", 0, 0, 0, 0, 1000, 638, "image");
-    // couch1 = new Component(93, 278, "./img/living_room.png", 186, 147, 186, 147, 93, 278, "image");
+    background = new Component(1200, 765, "./img/living_room.png", 0, 0, 0, 0, 1000, 638, "image", "furniture");
+    couch1 = new Component(476, 174, "./img/living_room.png", 685, 111, 571, 92, 397, 145, "image");
     // couch2 = new Component(278, 93, "./img/living_room.png", 299, 37, 299, 37, 278, 93, "image");
     // tv = new Component(196, 60, "./img/living_room.png", 359, 495, 359, 495, 196, 60, "image");
     // coffeeTable = new Component(73, 119, "./img/living_room.png", 404, 225, 404, 225, 73, 119, "image");
     cat = new Component(148, 80, "./img/cat1.png", 1, 1, 20, 20, 100, 52, "image", "cat");
-    mouse = new Component(100, 73, "./img/mouse.png", 0, 0, mouseInitX(), mouseInitY(), 30, 22, "image", "mouse");
     mouse = new Component(100, 73, "./img/mouse.png", 0, 0, mouseInitX(), mouseInitY(), 30, 22, "image", "mouse");
     score = new Component("30px", "Consolas", "black", 0, 0, 600, 50, 0, 0, "text");
     gameCanvas.start();
@@ -75,6 +76,7 @@ function mouseInitY() {
 
 var gameCanvas = {
     canvas : document.createElement("canvas"),
+    // key: false,
     start : function() {
         this.canvas.width = 1000;
         this.canvas.height = 638;
@@ -110,7 +112,6 @@ function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp, cla
     this.dy = dy;
     this.dw = dw;
     this.dh = dh;
-
     this.catFrames = {
                       0 : [1, 1],
                       1 : [150, 1],
@@ -198,6 +199,45 @@ function Component(width, height, path, sx, sy, dx, dy, dw, dh,  type, comp, cla
         }
         return caught;
     }
+
+    this.catMeetFurniture = function(furniture) {
+      var myleft = this.dx;
+      var myright = this.dx + (this.dw);
+      var mytop = this.dy;
+      var mybottom = this.dy + (this.dh);
+      var otherleft = furniture.dx;
+      var otherright = furniture.dx + (furniture.dw);
+      var othertop = furniture.dy;
+      var otherbottom = furniture.dy + (furniture.dh);
+      var collision = true;
+      if ((mybottom < othertop) ||
+          (mytop > otherbottom) ||
+          (myright < otherleft) ||
+          (myleft > otherright)) {
+          collision = false;
+      }
+      return collision;
+  }
+  this.furnitureLeft = function(furniture) {
+    var myright = this.dx + (this.dw);
+    var otherleft = furniture.dx;
+    return myright >= otherleft;
+  }
+  // this.furnitureRight = function(furniture) {
+  //   var myleft = this.dx;
+  //   var otherright = furniture.dx + (furniture.dw);
+  //   return myleft <= otherright;
+  // }
+  // this.furnitureTop = function(furniture) {
+  //   var mybottom = this.dy + (this.dh);
+  //   var othertop = furniture.dy;
+  //   return mybottom >= othertop;
+  // }
+  // this.furnitureBottom = function(furniture) {
+  //   var mytop = this.dy;
+  //   var otherbottom = furniture.dy + (furniture.dh);
+  //   return mytop <= otherbottom;
+  // }
 }
 
 function updateComponents() {
@@ -205,7 +245,7 @@ function updateComponents() {
   background.update();
   score.text = "SCORE: " + String(caughtMice);
   score.update();
-  // couch1.update();
+  couch1.update();
   // couch2.update();
   // tv.update();
   // coffeeTable.update();
@@ -214,48 +254,63 @@ function updateComponents() {
 }
 
 function updateGameArea() {
-    if (cat.catchMouse(mouse)) {
-        caughtMice += 1;
-        if (caughtMice == 1) {
-            miceTotal += 1;
-            gameCanvas.stop();
-            removeCanvas();
-            addWinDiv();
-            caughtMice = 0;
-            cat.speedX = 0;
-            cat.speedY = 0;
-            mouse.speedX = 0;
-            mouse.speedY = 0;
-            miceTotal = -1;
-        }
-        
+  if (cat.catchMouse(mouse)) {
+    caughtMice += 1;
+    if (caughtMice == 1) {
+      miceTotal += 1;
+      gameCanvas.stop();
+      removeCanvas();
+      addWinDiv();
+      caughtMice = 0;
+      cat.speedX = 0;
+      cat.speedY = 0;
+      mouse.speedX = 0;
+      mouse.speedY = 0;
+      miceTotal = -1;
+    }
     updateComponents();
     mouse = new Component(100, 73, "./img/mouse.png", 0, 0, mouseInitY(), mouseInitX(), 30, 22, "image");
     miceTotal += 1;
-    } else {
-        updateComponents();
-    }
+  }
+  else {
+    updateComponents();
+  }
 }
 
 function catMoves () {
     cat.speedX = 0;
     cat.speedY = 0;
-
     if (gameCanvas.key && gameCanvas.key == 37) {
+      if (cat.catMeetFurniture(couch1) && cat.furnitureRight(couch1)) {
+        cat.speedX = 0;
+      } else {
         cat.speedX = -2;
         cat.pressCount += 1;
+      }
     }
     if (gameCanvas.key && gameCanvas.key == 39) {
+      if (cat.catMeetFurniture(couch1) && cat.furnitureLeft(couch1)) {
+        cat.speedX = 0;
+      } else {
         cat.speedX = 2;
         cat.pressCount += 1;
+      }
     }
     if (gameCanvas.key && gameCanvas.key == 38) {
+      if (cat.catMeetFurniture(couch1) && cat.furnitureTop(couch1)) {
+        cat.speedY = 0;
+      } else {
         cat.speedY = -2;
         cat.pressCount += 1;
+      }
     }
     if (gameCanvas.key && gameCanvas.key == 40) {
+      if (cat.catMeetFurniture(couch1) && cat.furnitureTop(couch1)) {
+        cat.speedY = 0;
+      } else {
         cat.speedY = 2;
         cat.pressCount += 1;
+      }
     }
     cat.newPos();
     cat.update();
