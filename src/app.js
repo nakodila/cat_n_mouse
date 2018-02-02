@@ -307,6 +307,7 @@ function updateComponents() {
   gameCanvas.clear();
   background.update();
   score.text = "SCORE: " + String(caughtMice);
+  score.update();
   catMoves();
   mouseMoves();
 }
