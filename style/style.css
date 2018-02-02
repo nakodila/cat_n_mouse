@@ -30,8 +30,8 @@ canvas {
   align-items: center;
 }
 .bodyHide {
-  width: 1000px;
-  height: 638px;
+  width: 1200px;
+  height: 766px;
   background-position: center;
   background-image: url("../img/living_room.png");
   background-repeat: no-repeat;
